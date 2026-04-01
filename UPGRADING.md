@@ -1,4 +1,4 @@
-# Upgrading Claude Code Game Studios
+# Upgrading OpenCode Game Studios
 
 This guide covers upgrading your existing game project repo from one version
 of the template to the next.
@@ -43,8 +43,8 @@ Git will flag conflicts only in files that both the template *and* you have
 changed. Resolve each one — your game content goes in, structural improvements
 come along for the ride. Then commit the merge.
 
-**Tip:** The files most likely to conflict are `CLAUDE.md` and
-`.claude/docs/technical-preferences.md`, because you've filled them in with
+**Tip:** The files most likely to conflict are `AGENTS.md` and
+`.opencode/docs/technical-preferences.md`, because you've filled them in with
 your engine and project settings. Keep your content; accept the structural changes.
 
 ---
@@ -99,7 +99,7 @@ The `/design-systems` skill was renamed to `/map-systems` for clarity
 |----------|---------|
 | **New skills** | `/design-system` (guided GDD authoring, section-by-section) |
 | **Renamed skills** | `/design-systems` → `/map-systems` (breaking rename) |
-| **New files** | `.claude/statusline.sh`, `.claude/settings.json` statusline config |
+| **New files** | `.opencode/statusline.sh`, `.opencode/opencode.json` statusline config |
 | **Skill updates** | `/gate-check` — writes `production/stage.txt` on PASS, new phase definitions |
 | **Skill updates** | `brainstorm`, `start`, `design-review`, `project-stage-detect`, `setup-engine` — cross-reference fixes |
 | **Bug fixes** | `log-agent.sh`, `validate-commit.sh` — hook execution fixed |
@@ -111,21 +111,21 @@ The `/design-systems` skill was renamed to `/map-systems` for clarity
 
 **New files to add:**
 ```
-.claude/skills/design-system/SKILL.md
-.claude/statusline.sh
+.opencode/skills/design-system/SKILL.md
+.opencode/statusline.sh
 ```
 
 **Existing files to overwrite (no user content):**
 ```
-.claude/skills/map-systems/SKILL.md      ← was design-systems/SKILL.md
-.claude/skills/gate-check/SKILL.md
-.claude/skills/brainstorm/SKILL.md
-.claude/skills/start/SKILL.md
-.claude/skills/design-review/SKILL.md
-.claude/skills/project-stage-detect/SKILL.md
-.claude/skills/setup-engine/SKILL.md
-.claude/hooks/log-agent.sh
-.claude/hooks/validate-commit.sh
+.opencode/skills/map-systems/SKILL.md      ← was design-systems/SKILL.md
+.opencode/skills/gate-check/SKILL.md
+.opencode/skills/brainstorm/SKILL.md
+.opencode/skills/start/SKILL.md
+.opencode/skills/design-review/SKILL.md
+.opencode/skills/project-stage-detect/SKILL.md
+.opencode/skills/setup-engine/SKILL.md
+.opencode/hooks/log-agent.sh
+.opencode/hooks/validate-commit.sh
 README.md
 docs/WORKFLOW-GUIDE.md
 UPGRADING.md
@@ -133,22 +133,22 @@ UPGRADING.md
 
 **Delete (replaced by rename):**
 ```
-.claude/skills/design-systems/   ← entire directory; replaced by map-systems/
+.opencode/skills/design-systems/   ← entire directory; replaced by map-systems/
 ```
 
 ---
 
 ### Files: Merge Carefully
 
-#### `.claude/settings.json`
+#### `.opencode/opencode.json`
 
 The new version adds a `statusLine` configuration block pointing to
-`.claude/statusline.sh`. If you haven't customized `settings.json`, overwriting
+`.opencode/statusline.sh`. If you haven't customized `opencode.json`, overwriting
 is safe. Otherwise, add this block manually:
 
 ```json
 "statusLine": {
-  "script": ".claude/statusline.sh"
+  "script": ".opencode/statusline.sh"
 }
 ```
 
@@ -158,7 +158,7 @@ is safe. Otherwise, add this block manually:
 
 #### Custom Status Line
 
-`.claude/statusline.sh` displays a 7-stage production pipeline breadcrumb in
+`.opencode/statusline.sh` displays a 7-stage production pipeline breadcrumb in
 the terminal status line:
 
 ```
@@ -187,16 +187,16 @@ future sessions without requiring manual file edits.
 
 1. **Delete the old skill directory:**
    ```bash
-   rm -rf .claude/skills/design-systems/
+   rm -rf .opencode/skills/design-systems/
    ```
 
-2. **Test the status line** by starting a Claude Code session — you should see
+2. **Test the status line** by starting a OpenCode session — you should see
    the stage breadcrumb in the terminal footer.
 
 3. **Verify hook execution** still works:
    ```bash
-   bash .claude/hooks/log-agent.sh '{}' '{}'
-   bash .claude/hooks/validate-commit.sh '{}' '{}'
+   bash .opencode/hooks/log-agent.sh '{}' '{}'
+   bash .opencode/hooks/validate-commit.sh '{}' '{}'
    ```
 
 ---
@@ -217,7 +217,7 @@ future sessions without requiring manual file edits.
 | **Context management** | Major rewrite — file-backed state strategy added |
 | **Agent updates** | 14 design/creative agents — AskUserQuestion integration |
 | **Skill updates** | All 7 `team-*` skills + `brainstorm` — AskUserQuestion at phase transitions |
-| **CLAUDE.md** | Slimmed from ~159 to ~60 lines; 5 doc imports instead of 10 |
+| **AGENTS.md** | Slimmed from ~159 to ~60 lines; 5 doc imports instead of 10 |
 | **Hook updates** | All 8 hooks — Windows compatibility fixes, new features |
 | **Docs removed** | `docs/IMPROVEMENTS-PROPOSAL.md`, `docs/MULTI-STAGE-DOCUMENT-WORKFLOW.md` |
 
@@ -230,15 +230,15 @@ versions directly with no risk to your project content.
 
 **New files to add:**
 ```
-.claude/skills/start/SKILL.md
-.claude/skills/map-systems/SKILL.md
-.claude/skills/design-system/SKILL.md
-.claude/docs/templates/systems-index.md
-.claude/docs/templates/collaborative-protocols/design-agent-protocol.md
-.claude/docs/templates/collaborative-protocols/implementation-agent-protocol.md
-.claude/docs/templates/collaborative-protocols/leadership-agent-protocol.md
-.claude/hooks/detect-gaps.sh
-.claude/hooks/session-start.sh
+.opencode/skills/start/SKILL.md
+.opencode/skills/map-systems/SKILL.md
+.opencode/skills/design-system/SKILL.md
+.opencode/docs/templates/systems-index.md
+.opencode/docs/templates/collaborative-protocols/design-agent-protocol.md
+.opencode/docs/templates/collaborative-protocols/implementation-agent-protocol.md
+.opencode/docs/templates/collaborative-protocols/leadership-agent-protocol.md
+.opencode/hooks/detect-gaps.sh
+.opencode/hooks/session-start.sh
 production/session-state/.gitkeep
 docs/examples/README.md
 .github/ISSUE_TEMPLATE/bug_report.md
@@ -248,30 +248,30 @@ docs/examples/README.md
 
 **Existing files to overwrite (no user content):**
 ```
-.claude/skills/brainstorm/SKILL.md
-.claude/skills/design-review/SKILL.md
-.claude/skills/gate-check/SKILL.md
-.claude/skills/project-stage-detect/SKILL.md
-.claude/skills/setup-engine/SKILL.md
-.claude/skills/team-audio/SKILL.md
-.claude/skills/team-combat/SKILL.md
-.claude/skills/team-level/SKILL.md
-.claude/skills/team-narrative/SKILL.md
-.claude/skills/team-polish/SKILL.md
-.claude/skills/team-release/SKILL.md
-.claude/skills/team-ui/SKILL.md
-.claude/hooks/log-agent.sh
-.claude/hooks/pre-compact.sh
-.claude/hooks/session-stop.sh
-.claude/hooks/validate-assets.sh
-.claude/hooks/validate-commit.sh
-.claude/hooks/validate-push.sh
-.claude/rules/design-docs.md
-.claude/docs/hooks-reference.md
-.claude/docs/skills-reference.md
-.claude/docs/quick-start.md
-.claude/docs/directory-structure.md
-.claude/docs/context-management.md
+.opencode/skills/brainstorm/SKILL.md
+.opencode/skills/design-review/SKILL.md
+.opencode/skills/gate-check/SKILL.md
+.opencode/skills/project-stage-detect/SKILL.md
+.opencode/skills/setup-engine/SKILL.md
+.opencode/skills/team-audio/SKILL.md
+.opencode/skills/team-combat/SKILL.md
+.opencode/skills/team-level/SKILL.md
+.opencode/skills/team-narrative/SKILL.md
+.opencode/skills/team-polish/SKILL.md
+.opencode/skills/team-release/SKILL.md
+.opencode/skills/team-ui/SKILL.md
+.opencode/hooks/log-agent.sh
+.opencode/hooks/pre-compact.sh
+.opencode/hooks/session-stop.sh
+.opencode/hooks/validate-assets.sh
+.opencode/hooks/validate-commit.sh
+.opencode/hooks/validate-push.sh
+.opencode/rules/design-docs.md
+.opencode/docs/hooks-reference.md
+.opencode/docs/skills-reference.md
+.opencode/docs/quick-start.md
+.opencode/docs/directory-structure.md
+.opencode/docs/context-management.md
 docs/COLLABORATIVE-DESIGN-PRINCIPLE.md
 docs/WORKFLOW-GUIDE.md
 README.md
@@ -279,20 +279,20 @@ README.md
 
 **Agent files to overwrite** (if you haven't written custom prompts into them):
 ```
-.claude/agents/art-director.md
-.claude/agents/audio-director.md
-.claude/agents/creative-director.md
-.claude/agents/economy-designer.md
-.claude/agents/game-designer.md
-.claude/agents/level-designer.md
-.claude/agents/live-ops-designer.md
-.claude/agents/narrative-director.md
-.claude/agents/producer.md
-.claude/agents/systems-designer.md
-.claude/agents/technical-director.md
-.claude/agents/ux-designer.md
-.claude/agents/world-builder.md
-.claude/agents/writer.md
+.opencode/agents/art-director.md
+.opencode/agents/audio-director.md
+.opencode/agents/creative-director.md
+.opencode/agents/economy-designer.md
+.opencode/agents/game-designer.md
+.opencode/agents/level-designer.md
+.opencode/agents/live-ops-designer.md
+.opencode/agents/narrative-director.md
+.opencode/agents/producer.md
+.opencode/agents/systems-designer.md
+.opencode/agents/technical-director.md
+.opencode/agents/ux-designer.md
+.opencode/agents/world-builder.md
+.opencode/agents/writer.md
 ```
 
 If you *have* customized agent prompts, see "Merge carefully" below.
@@ -304,11 +304,11 @@ If you *have* customized agent prompts, see "Merge carefully" below.
 These files contain both template structure and your project-specific content.
 Do **not** overwrite them — merge the changes manually.
 
-#### `CLAUDE.md`
+#### `AGENTS.md`
 
 The template version was slimmed from ~159 lines to ~60 lines. The key
 structural change: 5 doc imports were removed because they're auto-loaded
-by Claude Code anyway (agent-roster, skills-reference, hooks-reference,
+by OpenCode anyway (agent-roster, skills-reference, hooks-reference,
 rules-reference, review-workflow).
 
 **What to keep from your version:**
@@ -319,22 +319,22 @@ rules-reference, review-workflow).
 - Slimmer imports list (drop the 5 redundant `@` imports if present)
 - Updated collaboration protocol wording
 
-#### `.claude/docs/technical-preferences.md`
+#### `.opencode/docs/technical-preferences.md`
 
 If you ran `/setup-engine`, this file has your engine config, naming
 conventions, and performance budgets. Keep all of it. The template version
 is just the empty placeholder.
 
-#### `.claude/docs/templates/game-concept.md`
+#### `.opencode/docs/templates/game-concept.md`
 
 Minor structural update — a `## Next Steps` section was added pointing to
 `/map-systems`. Add that section to your copy if you want the updated
 guidance, but it's not required.
 
-#### `.claude/settings.json`
+#### `.opencode/opencode.json`
 
 Check whether the new version adds any permission rules you want. The change
-was minor (schema update). If you haven't customized your `settings.json`,
+was minor (schema update). If you haven't customized your `opencode.json`,
 overwriting is safe.
 
 #### Customized agent files
@@ -375,8 +375,8 @@ docs/MULTI-STAGE-DOCUMENT-WORKFLOW.md → content merged into context-management
 4. **Test hook execution** — if you're on Windows, verify the new hooks run
    without errors in Git Bash:
    ```bash
-   bash .claude/hooks/detect-gaps.sh '{}' '{}'
-   bash .claude/hooks/session-start.sh '{}' '{}'
+   bash .opencode/hooks/detect-gaps.sh '{}' '{}'
+   bash .opencode/hooks/session-start.sh '{}' '{}'
    ```
 
 ---

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "${PRIMARY_MODEL}",
+  "small_model": "${FAST_MODEL}",
+  "instructions": [
+    ".opencode/docs/directory-structure.md",
+    ".opencode/docs/technical-preferences.md",
+    ".opencode/docs/coordination-rules.md",
+    ".opencode/docs/coding-standards.md",
+    ".opencode/docs/context-management.md",
+    ".opencode/rules/*.md",
+    "docs/COLLABORATIVE-DESIGN-PRINCIPLE.md"
+  ],
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git branch*": "allow",
+      "git rev-parse*": "allow",
+      "ls *": "allow",
+      "dir *": "allow",
+      "python -m json.tool*": "allow",
+      "python -m pytest*": "allow",
+      "py -m pytest*": "allow",
+      "rm -rf *": "deny",
+      "git push --force*": "deny",
+      "git push -f *": "deny",
+      "git reset --hard*": "deny",
+      "git clean -f*": "deny",
+      "sudo *": "deny",
+      "chmod 777*": "deny"
+    },
+    "read": {
+      "*": "allow",
+      "**/.env*": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      "**/.env*": "deny"
+    }
+  },
+  "mcp": {},
+  "snapshot": true,
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 10000
+  },
+  "watcher": {
+    "ignore": [
+      "production/session-state/**",
+      "production/session-logs/**"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+#!/bin/bash
+# Git pre-push hook — warns on pushes to protected branches
+# Install: git config core.hooksPath .githooks
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+for branch in develop main master; do
+    if [ "$CURRENT_BRANCH" = "$branch" ]; then
+        echo "⚠️  Push to protected branch '$branch' detected." >&2
+        echo "Reminder: Ensure build passes, unit tests pass, and no S1/S2 bugs exist." >&2
+        break
+    fi
+done
+
+exit 0
