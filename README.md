@@ -13,9 +13,18 @@
   <a href=".opencode/skills"><img src="https://img.shields.io/badge/skills-37-green" alt="37 Skills"></a>
   <a href=".opencode/scripts"><img src="https://img.shields.io/badge/scripts-8-orange" alt="8 Scripts"></a>
   <a href=".opencode/rules"><img src="https://img.shields.io/badge/rules-11-red" alt="11 Rules"></a>
-  <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/built%20for-Claude%20Code-f5f5f5?logo=anthropic" alt="Built for OpenCode"></a>
-  <a href="https://ko-fi.com/donchitos"><img src="https://img.shields.io/badge/Ko--fi-Support%20this%20project-ff5e5b?logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
+  <a href="https://opencode.ai"><img src="https://img.shields.io/badge/built%20for-OpenCode-f5f5f5" alt="Built for OpenCode"></a>
 </p>
+
+<p align="center">
+  <a href="README_KO.md">한국어</a>
+</p>
+
+---
+
+> **Migrated from [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)** by Donchitos.
+> This is an unofficial port adapted for [OpenCode](https://github.com/anomalyco/opencode) (provider-agnostic, open-source).
+> Original architecture, agent prompts, and workflows are by Donchitos — ported with full credit.
 
 ---
 
@@ -117,7 +126,7 @@ Type `/` in OpenCode to access all 37 skills:
 ### Prerequisites
 
 - [Git](https://git-scm.com/)
-- [OpenCode](https://docs.anthropic.com/en/docs/claude-code) (`npm install -g @anthropic-ai/claude-code`)
+- [OpenCode](https://opencode.ai) (`npm install -g opencode`)
 - **Recommended**: [jq](https://jqlang.github.io/jq/) and Python 3 (for JSON validation)
 - Run `git config core.hooksPath .githooks` to enable git hooks
 
@@ -151,19 +160,21 @@ versions, and which files are safe to overwrite vs. which need a manual merge.
 ## Project Structure
 
 ```
-AGENTS.md                           # Master configuration
+AGENTS.md                           # Project instructions (read by OpenCode)
+opencode.json                       # Permissions, model config, MCP servers
 .opencode/
-  opencode.json                     # Permissions, tool config, MCP servers
   agents/                           # 48 agent definitions (markdown + YAML frontmatter)
   skills/                           # 37 slash commands (subdirectory per skill)
-  hooks/                            # 8 hook scripts (bash, cross-platform)
   rules/                            # 11 path-scoped coding standards
+  scripts/                          # 8 utility scripts (validation, session state)
+  commands/                         # 5 custom /commands
   docs/
     quick-start.md                  # Detailed usage guide
     agent-roster.md                 # Full agent table with domains
     agent-coordination-map.md       # Delegation and escalation paths
     setup-requirements.md           # Prerequisites and platform notes
-    templates/                      # 28 document templates
+    templates/                      # 29 document templates
+.githooks/                          # pre-commit, pre-push validation hooks
 src/                                # Game source code
 assets/                             # Art, audio, VFX, shaders, data files
 design/                             # GDDs, narrative docs, level designs
